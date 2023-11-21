@@ -28,6 +28,7 @@ app.use(express.json());
 app.use('/debug', express.static(path.join(__dirname, 'public')));
 
 app.post('/log', async (req, res) => {
+  console.log(req)
   const { response_headers, response_body, response_code, user_uid } = req.body;
 
   // Insert the data into the database
