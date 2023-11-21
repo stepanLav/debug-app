@@ -25,7 +25,7 @@ pool.query(`
 `);
 
 app.use(express.json());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use('/debug', express.static(path.join(__dirname, 'public')));
 
 app.post('/log', async (req, res) => {
   const { response_headers, response_body, response_code, user_uid } = req.body;
@@ -40,5 +40,5 @@ app.post('/log', async (req, res) => {
 });
 
 app.listen(port, () => {
-  console.log(`App listening at https://localhost:${port}`);
+  console.log(`App listening at https://localhost:${port}/debug`);
 });
