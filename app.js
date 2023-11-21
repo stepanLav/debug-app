@@ -17,7 +17,6 @@ const pool = new Pool({
 pool.query(`
   CREATE TABLE IF NOT EXISTS coingecko_data (
     id SERIAL PRIMARY KEY,
-    request_headers JSONB,
     response_headers JSONB,
     response_body JSONB,
     response_code INTEGER,
@@ -29,12 +28,12 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.post('/log', async (req, res) => {
-  const { request_headers, response_headers, response_body, response_code, user_uid } = req.body;
+  const { response_headers, response_body, response_code, user_uid } = req.body;
 
   // Insert the data into the database
   await pool.query(
-    'INSERT INTO coingecko_data (request_headers, response_headers, response_body, response_code, user_uid) VALUES ($1, $2, $3, $4, $5)',
-    [request_headers, response_headers, response_body, response_code, user_uid]
+    'INSERT INTO coingecko_data (response_headers, response_body, response_code, user_uid) VALUES ($1, $2, $3, $4)',
+    [response_headers, response_body, response_code, user_uid]
   );
 
   res.sendStatus(200);

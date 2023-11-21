@@ -1,11 +1,55 @@
 <!DOCTYPE html>
 <html>
+<head>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f5f7;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        h2 {
+            color: #1a202c;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        #requestButton {
+            background-color: #3182ce;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        #requestButton:disabled {
+            background-color: #cbd5e0;
+        }
+
+        #message {
+            margin-top: 20px;
+            font-size: 18px;
+        }
+    </style>
+</head>
 <body>
 
-<h2>Debug coingeko </h2>
+<div class="container">
+    <h2>App to debug coingeko together with novawallet!</h2>
 
-<button id="requestButton" onclick="makeRequest()">Make Request</button>
-<p id="message"></p>
+    <button id="requestButton" onclick="makeRequest()">Make Coingeko Request</button>
+    <p id="message"></p>
+</div>
 
 <script>
   async function makeRequest() {
@@ -22,7 +66,6 @@
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        request_headers: {}, // Replace with actual request headers if available
         response_headers: response.headers,
         response_body: data,
         response_code: response.status,
