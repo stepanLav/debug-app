@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h2>Debug coingeko </h2>
+
+<button id="requestButton" onclick="makeRequest()">Make Request</button>
+<p id="message"></p>
+
+<script>
+  async function makeRequest() {
+    // Generate a unique user ID
+    const user_uid = 'user' + Date.now();
+
+    const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=polkadot,kusama,rmrk,tether,karura,ausd-seed-karura,bifrost-native-coin,liquid-ksm,pha,kintsugi,bitcoin,quartz,moonriver,crust-storage-market,calamari-network,integritee,metaverse-network-pioneer,basilisk,altair,genshiro,darwinia-crab-network,litentry,shiden,robonomics-network,usd-coin,dai,frax,frax-share,idia,crowns,zenlink-network-token,solarbeam,hydro,riverboat,moonbeans,space-token-bsc,moonwell,edgeware,turing-network,darwinia-network-native-token,kilt-protocol,acala,liquid-staking-dot,ausd-seed-acala,moonbeam,parallel-finance,interlay,astar,equilibrium-token,raresama,centrifuge,hydradx,nodle-network,voucher-dot,binance-usd,matic-network,avalanche-2,wrapped-bitcoin,fantom,wrapped-moonbeam,boba-network,bepro-network,convergence,beamswap,energyfi,stellaswap,binancecoin,ethereum,moonwell-artemis,hex,staked-ether,uniswap,unique-network,clover-finance,zeitgeist,ethereum-wormhole,aleph-zero,polkadex,origintrail,dora-factory,polymesh,ajuna-network,coin-capsule,kylin-network,myriad-social,fusotao,xxcoin,pendulum-chain,aventus,crust-network,bittensor,exosama-network,3dpass,vara-network,krest,jur,enjincoin,energy-web-token&vs_currencies=eth&include_24hr_change=true');
+    const data = await response.json();
+
+    // Send the result to the server
+    const logResponse = await fetch('http://localhost:4500/log', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        request_headers: {}, // Replace with actual request headers if available
+        response_headers: response.headers,
+        response_body: data,
+        response_code: response.status,
+        user_uid: user_uid, // Use the generated user UID
+      }),
+    });
+
+    // Disable the button and display a message to the user
+    document.getElementById('requestButton').disabled = true;
+    document.getElementById('message').textContent = 'Thank you for your help! Your user ID is ' + user_uid;
+  }
+</script>
+
+</body>
+</html>
